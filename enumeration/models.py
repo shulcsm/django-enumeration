@@ -22,7 +22,7 @@ class Sequence(models.Model):
 
 
 class Counter(models.Model):
-    sequence = models.ForeignKey(Sequence, related_name='counters')
+    sequence = models.ForeignKey(Sequence, related_name='counters', on_delete=models.CASCADE)
     position = models.PositiveIntegerField(default=0)
     period = models.DateField(null=True)
 
@@ -37,7 +37,7 @@ class Counter(models.Model):
 
 
 class Gap(models.Model):
-    counter = models.ForeignKey(Counter, related_name='gaps')
+    counter = models.ForeignKey(Counter, related_name='gaps', on_delete=models.CASCADE)
     position = models.PositiveIntegerField()
 
     unique_together = (

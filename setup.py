@@ -6,7 +6,8 @@ setup(
     url='https://github.com/shulcsm/django-enumeration',
     author='Mārtiņš Šulcs',
     author_email='shulcsm@gmail.com',
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests*']),
+    zip_safe=False,
     include_package_data=True,
     license='MIT',
     classifiers=[
@@ -24,6 +25,7 @@ setup(
     python_requires='>=3.4',
     install_requires=[
         'Django>=1.11',
-        'django-partial-index==0.4.0'
+        'django-partial-index==0.4.0',
+        'django-enumfields==0.10.1'
     ]
 )

@@ -4,11 +4,13 @@ Django enumeration sequences
 
 **Consistent, gapless, periodic(optional) sequences with number formatting for accounting documents and such**
 
+
 Requirements
 ==============
 
 * Postgres 9.5+
 * Python 3.4+
+
 
 
 Installation
