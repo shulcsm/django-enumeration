@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from enumfields import EnumField
-from partial_index import PartialIndex
+from partial_index import PartialIndex, PQ
 
 from enumeration.const import ResetPeriod
 from enumeration.validators import validate_format
@@ -32,7 +32,7 @@ class Counter(models.Model):
         )
         indexes = [
             # only one counter for period-naive sequences
-            PartialIndex(fields=['sequence_id'], unique=True, where='period IS NULL'),
+            PartialIndex(fields=['sequence'], unique=True, where=PQ(period__isnull=True)),
         ]
 
 

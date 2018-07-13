@@ -22,10 +22,10 @@ setup(
         'Topic :: Software Development :: Libraries :: Application Frameworks',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    python_requires='>=3.4',
+    python_requires='>=3.6',
     install_requires=[
         'Django>=1.11',
-        'django-partial-index==0.4.0',
+        'django-partial-index==0.5.1',
         'django-enumfields==0.10.1'
     ]
 )

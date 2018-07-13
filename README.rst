@@ -9,7 +9,7 @@ Requirements
 ==============
 
 * Postgres 9.5+
-* Python 3.4+
+* Python 3.6+
 
 
 
