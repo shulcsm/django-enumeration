@@ -52,7 +52,6 @@ class IncrementTestCase(TestCase):
         self.assertEqual(increment(s, next_d), 3)
         self.assertTrue(Counter.objects.get(sequence=s, position=3, period=m, pk=c.pk))
 
-        d = datetime.date(2012, 2, 15)
         self.assertEqual(increment(s, datetime.date(2012, 2, 1)), 1)
         # new created
         Counter.objects.get(sequence=s, position=1, period=datetime.date(2012, 2, 1))

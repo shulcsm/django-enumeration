@@ -19,7 +19,7 @@ class ConsumeGapTestCase(TestCase):
 
     def test_has_counter_no_gaps(self):
         d = datetime.date(2012, 1, 14)
-        c = Counter.objects.create(sequence=self.s, period=d, position=5)
+        Counter.objects.create(sequence=self.s, period=d, position=5)
         self.assertIsNone(consume_gap(self.s, d))
 
     def test_gaps_consumed(self):

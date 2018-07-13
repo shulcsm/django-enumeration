@@ -4,7 +4,7 @@ from typing import Optional, Tuple
 from django.db import connection
 
 from enumeration.const import ResetPeriod
-from enumeration.models import Sequence, Counter, Gap
+from enumeration.models import Sequence
 from .formatter import format_number
 
 
@@ -44,18 +44,16 @@ def truncate_date(period: ResetPeriod, date: datetime.date):
 def get_next_position(sequence: Sequence, date: Optional[datetime.date] = None) -> int:
     never = sequence.reset_period == ResetPeriod.NEVER
 
-    if not never and date is None:
-        raise EnumerationError("Missing date")
-
     args = [sequence.pk]
 
     if never:
         query = NEXT_QUERY.format("")
 
-    else:
+    elif date:
         query = NEXT_QUERY.format(PERIOD_CRITERIA)
-        # @TODO truncate period
         args = [truncate_date(sequence.reset_period, date)] + args
+    else:
+        raise EnumerationError("Missing date")
 
     with connection.cursor() as cursor:
         cursor.execute(query, args)
@@ -82,17 +80,17 @@ WHERE id = (
 def consume_gap(sequence: Sequence, date: Optional[datetime.date] = None) -> Optional[int]:
     never = sequence.reset_period == ResetPeriod.NEVER
 
-    if not never and date is None:
-        raise EnumerationError("Missing date")
-
     args = [sequence.pk]
 
     if never:
         query = CONSUME_GAP_QUERY.format("")
 
-    else:
+    elif date:
         query = CONSUME_GAP_QUERY.format(PERIOD_CRITERIA)
         args = [truncate_date(sequence.reset_period, date)] + args
+
+    else:
+        raise EnumerationError("Missing date")
 
     with connection.cursor() as cursor:
         cursor.execute(query, args)
@@ -101,12 +99,11 @@ def consume_gap(sequence: Sequence, date: Optional[datetime.date] = None) -> Opt
     if row:
         return row[0]
 
+    return None
+
 
 def increment(sequence: Sequence, date: Optional[datetime.date] = None) -> int:
     never = sequence.reset_period == ResetPeriod.NEVER
-
-    if not never and date is None:
-        raise EnumerationError("Missing date")
 
     if never:
         query = """
@@ -116,13 +113,16 @@ def increment(sequence: Sequence, date: Optional[datetime.date] = None) -> int:
         """
         args = [sequence.pk]
 
-    else:
+    elif date:
         query = """
          INSERT INTO enumeration_counter (sequence_id, "position", period) VALUES (%s, 1, %s)
          ON CONFLICT (sequence_id, period)
          DO UPDATE SET "position" = enumeration_counter."position" + 1 RETURNING "position";
         """
         args = [sequence.pk, truncate_date(sequence.reset_period, date)]
+
+    else:
+        raise EnumerationError("Missing date")
 
     with connection.cursor() as cursor:
         cursor.execute(query, args)
