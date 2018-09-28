@@ -20,3 +20,9 @@ class FormatTestCase(SimpleTestCase):
             format_number("# {one} YY {two} M D", position=1, date=d, one='foo', two='bar'),
             '1 foo 17 bar 3 11'
         )
+
+    def test_literal(self):
+        d = date(2017, 3, 11)
+        self.assertEqual(
+            format_number(r"{{#YYYYMD}} #YYYYMD", position=1, date=d), r"#YYYYMD 12017311"
+        )
