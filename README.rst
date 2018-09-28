@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/shulcsm/django-enumeration.svg?branch=master
+    :target: https://travis-ci.org/shulcsm/django-enumeration
+
 ===========
 Django enumeration sequences
 ===========
