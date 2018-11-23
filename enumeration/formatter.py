@@ -8,6 +8,7 @@ TOKENS = {
     'YEAR':     r'Y{2,4}',
     'MONTH':    r'M{1,2}',
     'DAY':      r'D{1,2}',
+    'CHAR':     r'[\x00-\x7F]',
     'WS':       r'\s+',
 }
 
@@ -21,7 +22,7 @@ def format_number(format_string: str, position: int, **context) -> str:
         token = match.lastgroup
         value = match.group(token)
 
-        if token == 'WS':
+        if token in ['CHAR', 'WS']:
             parts.append(value)
 
         elif token == 'POSITION':

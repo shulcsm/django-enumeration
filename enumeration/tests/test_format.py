@@ -21,6 +21,11 @@ class FormatTestCase(SimpleTestCase):
             '1 foo 17 bar 3 11'
         )
 
+    def test_ascii(self):
+        d = date(2017, 3, 11)
+        self.assertEqual(format_number("YYA#B", position=1, date=d), '17A1B')
+        self.assertEqual(format_number("YY#Ā⅜£B", position=1, date=d), '171B')
+
     def test_literal(self):
         d = date(2017, 3, 11)
         self.assertEqual(
