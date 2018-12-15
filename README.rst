@@ -19,12 +19,14 @@ Requirements
 Installation
 ____________
 
-1. Add "enumeration" to your INSTALLED_APPS setting like this::
+1. pip install django-enumeration
+
+2. Add "enumeration" to your INSTALLED_APPS setting like this::
 
     INSTALLED_APPS = [
         ...
         'enumeration',
     ]
 
-2. Run `python manage.py migrate` to create the enumeration models.
+3. Run `python manage.py migrate` to create the enumeration models.
 
