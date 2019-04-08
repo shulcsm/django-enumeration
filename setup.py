@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-enumeration',
-    version='0.1.2',
+    version='0.2.0',
     url='https://github.com/shulcsm/django-enumeration',
     author='Mārtiņš Šulcs',
     author_email='shulcsm@gmail.com',
@@ -18,14 +18,13 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     python_requires='>=3.6',
     install_requires=[
-        'Django>=1.11',
-        'django-partial-index==0.5.1',
-        'django-enumfields==0.10.1'
+        'Django>=2.2',
+        'django-enumfields==1.0.0'
     ]
 )
