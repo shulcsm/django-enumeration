@@ -20,6 +20,8 @@ def format_number(format_string: str, position: int, **context) -> str:
 
     for match in TOKEN_RE.finditer(format_string):
         token = match.lastgroup
+        assert token
+
         value = match.group(token)
 
         if token in ['CHAR', 'WS']:
