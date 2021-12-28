@@ -5,6 +5,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "enumeration_test",
         "USER": "postgres",
+        "PASSWORD": "postgres",
         "HOST": "localhost"
     }
 }
