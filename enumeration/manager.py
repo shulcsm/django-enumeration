@@ -1,10 +1,13 @@
 import datetime
-from typing import Optional, Tuple
+
+from typing import Optional
+from typing import Tuple
 
 from django.db import connection
 
 from enumeration.const import ResetPeriod
 from enumeration.models import Sequence
+
 from .formatter import format_number
 
 
@@ -77,7 +80,9 @@ WHERE id = (
 """
 
 
-def consume_gap(sequence: Sequence, date: Optional[datetime.date] = None) -> Optional[int]:
+def consume_gap(
+    sequence: Sequence, date: Optional[datetime.date] = None
+) -> Optional[int]:
     never = sequence.reset_period == ResetPeriod.NEVER
 
     args = [sequence.pk]
@@ -133,7 +138,7 @@ def increment(sequence: Sequence, date: Optional[datetime.date] = None) -> int:
 
 # @TODO testcase
 def get_number(sequence: Sequence, fill_gap=True, **context) -> Tuple[str, int]:
-    date = context.get('date', None)
+    date = context.get("date", None)
     if fill_gap:
         gap_pos = consume_gap(sequence, date)
         if gap_pos is not None:

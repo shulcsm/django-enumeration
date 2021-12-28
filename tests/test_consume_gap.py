@@ -3,15 +3,17 @@ import datetime
 from django.test import TestCase
 
 from enumeration.const import ResetPeriod
-from enumeration.models import Sequence, Counter, Gap
 from enumeration.manager import consume_gap
+from enumeration.models import Counter
+from enumeration.models import Gap
+from enumeration.models import Sequence
 
 
 class ConsumeGapTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.s = Sequence.objects.create(format='#', reset_period=ResetPeriod.DAILY)
+        cls.s = Sequence.objects.create(format="#", reset_period=ResetPeriod.DAILY)
 
     def test_no_counter(self):
         d = datetime.date(2012, 1, 14)

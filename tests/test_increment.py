@@ -3,23 +3,26 @@ import datetime
 from django.test import TestCase
 
 from enumeration.const import ResetPeriod
-from enumeration.models import Sequence, Counter
 from enumeration.manager import increment
+from enumeration.models import Counter
+from enumeration.models import Sequence
 
 
 class IncrementTestCase(TestCase):
     def test_never(self):
-        s = Sequence.objects.create(format='#', reset_period=ResetPeriod.NEVER)
+        s = Sequence.objects.create(format="#", reset_period=ResetPeriod.NEVER)
         self.assertEqual(increment(s), 1)
         # created
         c = Counter.objects.get(sequence=s, position=1, period=None)
 
         # updated
         self.assertEqual(increment(s), 2)
-        self.assertTrue(Counter.objects.get(sequence=s, position=2, period=None, pk=c.pk))
+        self.assertTrue(
+            Counter.objects.get(sequence=s, position=2, period=None, pk=c.pk)
+        )
 
     def test_daily_counter_created(self):
-        s = Sequence.objects.create(format='#', reset_period=ResetPeriod.DAILY)
+        s = Sequence.objects.create(format="#", reset_period=ResetPeriod.DAILY)
 
         d = datetime.date(2012, 1, 14)
         self.assertEqual(increment(s, d), 1)
@@ -36,7 +39,7 @@ class IncrementTestCase(TestCase):
         Counter.objects.get(sequence=s, position=1, period=d)
 
     def test_monthly_counter_created(self):
-        s = Sequence.objects.create(format='#', reset_period=ResetPeriod.MONTHLY)
+        s = Sequence.objects.create(format="#", reset_period=ResetPeriod.MONTHLY)
 
         m = datetime.date(2012, 1, 1)
         self.assertEqual(increment(s, datetime.date(2012, 1, 14)), 1)
@@ -57,7 +60,7 @@ class IncrementTestCase(TestCase):
         Counter.objects.get(sequence=s, position=1, period=datetime.date(2012, 2, 1))
 
     def test_yearly_counter_created(self):
-        s = Sequence.objects.create(format='#', reset_period=ResetPeriod.YEARLY)
+        s = Sequence.objects.create(format="#", reset_period=ResetPeriod.YEARLY)
 
         y = datetime.date(2012, 1, 1)
         self.assertEqual(increment(s, datetime.date(2012, 1, 14)), 1)

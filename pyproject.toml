@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "django-enumeration"
+version = "0.2.1"
+description = "Robust django enumeration sequences"
+authors = ["Mārtiņš Šulcs <shulcsm@gmail.com>"]
+license = "MIT"
+readme = "README.rst"
+classifiers=[
+    'Framework :: Django',
+    'Intended Audience :: Developers',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+]
+
+packages = [
+    { include = "enumeration" },
+]
+
+
+[tool.poetry.dependencies]
+python = ">=3.6.2"
+django-enumfields = "2.0.0"
+Django = ">=2.2"
+
+[tool.poetry.dev-dependencies]
+psycopg2-binary = "2.7.5"
+tox = "^3.24"
+flake8 = "3.5.0"
+mypy = "0.761"
+pytest-django = "^4.5.2"
+isort = "^5.10.1"
+black = "^21.12b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+files = "enumeration"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+  'enumeration.migrations.*',
+]
+ignore_errors = true
+
+
+[tool.isort]
+py_version = 36
+profile = "black"
+force_single_line = true
+combine_as_imports = true
+lines_between_types = 1
+lines_after_imports = 2
+src_paths = ["enumeration", "tests"]
