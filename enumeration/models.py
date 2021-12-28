@@ -1,6 +1,5 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from enumfields import EnumField
 
 from enumeration.const import ResetPeriod
 from enumeration.validators import validate_format
@@ -8,7 +7,9 @@ from enumeration.validators import validate_format
 
 class Sequence(models.Model):
     format = models.CharField(max_length=255)
-    reset_period = EnumField(ResetPeriod, max_length=30, default=ResetPeriod.NEVER)
+    reset_period = models.CharField(
+        ResetPeriod, max_length=30, default=ResetPeriod.NEVER
+    )
 
     def clean(self):
         try:

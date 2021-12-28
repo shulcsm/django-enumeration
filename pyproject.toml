@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-enumeration"
-version = "0.2.2"
+version = "1.0.0"
 description = "Robust django enumeration sequences"
 authors = ["Mārtiņš Šulcs <shulcsm@gmail.com>"]
 license = "MIT"
@@ -18,8 +18,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.6.2"
-django-enumfields = "2.1.1"
-Django = ">=2.2"
+Django = ">=3.2"
 
 [tool.poetry.dev-dependencies]
 psycopg2-binary = "2.7.5"

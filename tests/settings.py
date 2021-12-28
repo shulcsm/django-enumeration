@@ -20,3 +20,7 @@ INSTALLED_APPS = [
 ]
 
 SECRET_KEY = "enumeration"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+USE_TZ = False

@@ -1,7 +1,7 @@
-from enum import Enum
+from django.db import models
 
 
-class ResetPeriod(Enum):
+class ResetPeriod(models.TextChoices):
     NEVER = "never"
     DAILY = "daily"
     MONTHLY = "monthly"
