@@ -6,7 +6,7 @@ DATABASES = {
         "NAME": "enumeration_test",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "localhost"
+        "HOST": "localhost",
     }
 }
 

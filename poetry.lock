@@ -132,7 +132,7 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-enumfields"
-version = "2.0.0"
+version = "2.1.1"
 description = "Real Python Enums for Django."
 category = "main"
 optional = false
@@ -489,7 +489,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.6.2"
-content-hash = "d708498ce45ad19096f9b1535cf4ad09400933dd3196d3304f80174991b6e671"
+content-hash = "e89105c532dd6d2776139926d2fbd0603581ad068af1926acba36a881b645859"
 
 [metadata.files]
 asgiref = [
@@ -533,8 +533,8 @@ django = [
     {file = "Django-3.2.10.tar.gz", hash = "sha256:074e8818b4b40acdc2369e67dcd6555d558329785408dcd25340ee98f1f1d5c4"},
 ]
 django-enumfields = [
-    {file = "django-enumfields-2.0.0.tar.gz", hash = "sha256:e94f6b39de7adc0716130101d75eede3834b42e2a895599c19354eb1bb7fbdd1"},
-    {file = "django_enumfields-2.0.0-py3-none-any.whl", hash = "sha256:9bc0e2c410723c9592992155f32adadcedc11c841f6888dcf721f5f638d466e3"},
+    {file = "django-enumfields-2.1.1.tar.gz", hash = "sha256:f64841732a9c343f5071220e0abcf5f51c9472c06e3c33d7c6a7ec27b6087561"},
+    {file = "django_enumfields-2.1.1-py3-none-any.whl", hash = "sha256:d32f2151801a5fc13c860276ee99495c2c9345e0a4281d0104276c39ddb22807"},
 ]
 filelock = [
     {file = "filelock-3.4.1-py3-none-any.whl", hash = "sha256:a4bc51381e01502a30e9f06dd4fa19a1712eab852b6fb0f84fd7cce0793d8ca3"},

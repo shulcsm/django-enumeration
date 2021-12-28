@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.2.2 (2021-12-28)
+------------------
+
+* Update to django-enumfields 2.1.1
+* Test py38, py39 and django 3
+
 0.2.1 (2020-01-30)
 ------------------
 
