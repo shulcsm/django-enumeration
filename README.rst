@@ -1,6 +1,6 @@
-===========
+============================
 Django enumeration sequences
-===========
+============================
 
 **Consistent, gapless, periodic(optional) sequences with number formatting for accounting documents and such**
 
