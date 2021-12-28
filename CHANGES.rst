@@ -1,6 +1,13 @@
 Changes
 =======
 
+1.0.0 (2021-12-28)
+------------------
+
+* Remove to django-enumfields
+* Use native django TextChoices
+* Bump minimal django version to 3.2
+
 0.2.2 (2021-12-28)
 ------------------
 
