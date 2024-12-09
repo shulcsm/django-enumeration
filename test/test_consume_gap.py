@@ -30,10 +30,10 @@ class ConsumeGapTestCase(TestCase):
         Gap.objects.create(counter=c, position=2)
         Gap.objects.create(counter=c, position=3)
 
-        self.assertEqual(consume_gap(self.s, d), 2)
+        self.assertEqual(consume_gap(self.s, d), (2, c.id))
         self.assertFalse(Gap.objects.filter(counter=c, position=2).exists())
 
-        self.assertEqual(consume_gap(self.s, d), 3)
+        self.assertEqual(consume_gap(self.s, d), (3, c.id))
         self.assertFalse(Gap.objects.filter(counter=c, position=3).exists())
 
     def test_right_counter_consumed(self):
@@ -47,6 +47,6 @@ class ConsumeGapTestCase(TestCase):
         Gap.objects.create(counter=c2, position=2)
         Gap.objects.create(counter=c2, position=3)
 
-        self.assertEqual(consume_gap(self.s, d2), 2)
+        self.assertEqual(consume_gap(self.s, d2), (2, c2.id))
         self.assertEqual(c.gaps.count(), 2)
         self.assertEqual(c2.gaps.count(), 1)

@@ -1,8 +1,5 @@
 import datetime
-
-from typing import Optional
-from typing import Tuple
-
+from typing import Optional, NamedTuple
 from django.db import connection
 
 from enumeration.const import ResetPeriod
@@ -32,6 +29,11 @@ LEFT JOIN LATERAL (
     LIMIT 1) g ON true
 WHERE s.id = %s;
 """
+
+
+class PositionParams(NamedTuple):
+    position: int
+    counter_id: int
 
 
 def truncate_date(period: ResetPeriod, date: datetime.date):
@@ -76,13 +78,13 @@ WHERE id = (
         ON c.id = g.counter_id {}
     WHERE c.sequence_id = %s
     ORDER BY g."position" ASC LIMIT 1
-) RETURNING "position";
+) RETURNING "position", counter_id;
 """
 
 
 def consume_gap(
     sequence: Sequence, date: Optional[datetime.date] = None
-) -> Optional[int]:
+) -> Optional[PositionParams]:
     never = sequence.reset_period == ResetPeriod.NEVER
 
     args = [sequence.pk]
@@ -102,19 +104,21 @@ def consume_gap(
         row = cursor.fetchone()
 
     if row:
-        return row[0]
+        return PositionParams(*row)
 
     return None
 
 
-def increment(sequence: Sequence, date: Optional[datetime.date] = None) -> int:
+def increment(
+    sequence: Sequence, date: Optional[datetime.date] = None
+) -> PositionParams:
     never = sequence.reset_period == ResetPeriod.NEVER
 
     if never:
         query = """
          INSERT INTO enumeration_counter (sequence_id, "position") VALUES (%s, 1)
          ON CONFLICT (sequence_id) WHERE period IS NULL
-         DO UPDATE SET "position" = enumeration_counter."position" + 1 RETURNING "position";
+         DO UPDATE SET "position" = enumeration_counter."position" + 1 RETURNING "position", "enumeration_counter"."id";
         """
         args = [sequence.pk]
 
@@ -122,7 +126,7 @@ def increment(sequence: Sequence, date: Optional[datetime.date] = None) -> int:
         query = """
          INSERT INTO enumeration_counter (sequence_id, "position", period) VALUES (%s, 1, %s)
          ON CONFLICT (sequence_id, period)
-         DO UPDATE SET "position" = enumeration_counter."position" + 1 RETURNING "position";
+         DO UPDATE SET "position" = enumeration_counter."position" + 1 RETURNING "position", "enumeration_counter"."id";
         """
         args = [sequence.pk, truncate_date(sequence.reset_period, date)]
 
@@ -133,16 +137,30 @@ def increment(sequence: Sequence, date: Optional[datetime.date] = None) -> int:
         cursor.execute(query, args)
         row = cursor.fetchone()
 
-    return row[0]
+    return PositionParams(*row)
 
 
-# @TODO testcase
-def get_number(sequence: Sequence, fill_gap=True, **context) -> Tuple[str, int]:
+class NumerParams(NamedTuple):
+    number: str
+    position: int
+    counter_id: int
+
+
+def get_number(sequence: Sequence, fill_gap=True, **context) -> NumerParams:
     date = context.get("date", None)
     if fill_gap:
         gap_pos = consume_gap(sequence, date)
         if gap_pos is not None:
-            return format_number(sequence.format, position=gap_pos, **context), gap_pos
+            position, counter_id = gap_pos
+            return NumerParams(
+                number=format_number(sequence.format, position=position, **context),
+                position=position,
+                counter_id=counter_id,
+            )
 
-    pos = increment(sequence, date)
-    return format_number(sequence.format, position=pos, **context), pos
+    position, counter_id = increment(sequence, date)
+    return NumerParams(
+        number=format_number(sequence.format, position=position, **context),
+        position=position,
+        counter_id=counter_id,
+    )
