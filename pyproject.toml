@@ -1,55 +1,30 @@
-[tool.poetry]
+[project]
 name = "django-enumeration"
 version = "1.0.0"
 description = "Robust django enumeration sequences"
-authors = ["Mārtiņš Šulcs <shulcsm@gmail.com>"]
+authors = [{ name = "Mārtiņš Šulcs", email = "shulcsm@gmail.com" }]
 license = "MIT"
 readme = "README.rst"
-classifiers=[
-    'Framework :: Django',
-    'Intended Audience :: Developers',
-    'Topic :: Software Development :: Libraries :: Python Modules',
+classifiers = [
+  'Framework :: Django',
+  'Intended Audience :: Developers',
+  'Topic :: Software Development :: Libraries :: Python Modules',
 ]
+requires-python = ">=3.8"
+dependencies = ["Django>=4"]
 
-packages = [
-    { include = "enumeration" },
+
+[dependency-groups]
+dev = [
+  "pytest-django>=4.9.0",
+  "pytest>=8.3.4",
+  "psycopg2-binary>=2.9.10",
+  "ruff>=0.8.2",
 ]
-
-
-[tool.poetry.dependencies]
-python = ">=3.6.2"
-Django = ">=3.2"
-
-[tool.poetry.dev-dependencies]
-psycopg2-binary = "2.7.5"
-tox = "^3.24"
-flake8 = "3.5.0"
-mypy = "0.761"
-pytest-django = "^4.5.2"
-isort = "^5.10.1"
-black = "^21.12b0"
 
 [build-system]
-# https://github.com/python-poetry/poetry/issues/3001
-requires = ["poetry-core>=1.0.0", "setuptools"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.mypy]
-files = "enumeration"
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = [
-  'enumeration.migrations.*',
-]
-ignore_errors = true
-
-
-[tool.isort]
-py_version = 36
-profile = "black"
-force_single_line = true
-combine_as_imports = true
-lines_between_types = 1
-lines_after_imports = 2
-src_paths = ["enumeration", "tests"]
+[tool.hatch.build.targets.wheel]
+packages = ["src/enumeration"]
