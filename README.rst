@@ -27,3 +27,9 @@ ____________
 
 3. Run `python manage.py migrate` to create the enumeration models.
 
+
+
+Development
+____________
+
+DJANGO_SETTINGS_MODULE=enumeration.tests.settings django-admin makemigrations

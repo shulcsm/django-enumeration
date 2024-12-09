@@ -1,5 +1,3 @@
-DATABASE_ENGINE = "sqlite3"
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -17,6 +15,7 @@ INSTALLED_APPS = [
     # 'django.contrib.auth',
     # 'django.contrib.admin',
     "enumeration",
+    "enumeration.tests",
 ]
 
 SECRET_KEY = "enumeration"

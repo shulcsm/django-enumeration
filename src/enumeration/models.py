@@ -1,6 +1,5 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-
 from enumeration.const import ResetPeriod
 from enumeration.validators import validate_format
 
@@ -43,12 +42,3 @@ class Gap(models.Model):
     position = models.PositiveIntegerField()
 
     unique_together = ("counter", "position")
-
-
-# class EnumeratedDocumentMixin(models.Model):
-#     sequence = models.ForeignKey(Sequence)
-#     position = models.PositiveIntegerField(null=True)
-#     number = models.CharField(max_length=255, null=True, blank=True)
-#
-#     class Meta:
-#         abstract = True
