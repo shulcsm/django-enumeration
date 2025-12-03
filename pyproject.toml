@@ -1,6 +1,6 @@
 [project]
 name = "django-enumeration"
-version = "2.0.0"
+version = "2.0.1"
 description = "Robust django enumeration sequences"
 authors = [{ name = "Mārtiņš Šulcs", email = "shulcsm@gmail.com" }]
 license = "MIT"
