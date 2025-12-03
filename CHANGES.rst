@@ -1,6 +1,12 @@
 Changes
 =======
 
+2.0.0 (2024-12-09)
+------------------
+* move to uv
+* Reassign number
+* Return counter id
+
 1.0.0 (2021-12-28)
 ------------------
 
